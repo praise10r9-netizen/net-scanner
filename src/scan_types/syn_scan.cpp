@@ -33,6 +33,7 @@ void SynScanner::scan(int port)
   iph->version = 4;
   iph->tot_len = sizeof(struct iphdr) + sizeof(struct tcphdr);
   iph->protocol = IPPROTO_TCP;
+  iph->check = compute_checksum((unsigned short*)iph, sizeof(struct iphdr));
   
   iph->saddr = inet_addr("192.168.1.100");
   iph->daddr = inet_addr(target_ip.c_str());
@@ -41,6 +42,7 @@ void SynScanner::scan(int port)
   tcph->dest = htons(port);
   tcph->seq = random();
   tcph->syn = 1;
+  tcph->check = tcp_checksum(iph,tcph);
   tcph->window = htons(65535);
   
   sockaddr_in dest;
