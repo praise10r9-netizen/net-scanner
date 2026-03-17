@@ -1,6 +1,6 @@
 #include "checksum.h"
 #include <string>
-
+#include <cstring>
 unsigned short compute_checksum(unsigned short* addr, int len)
 {
   long sum = 0;
@@ -25,7 +25,7 @@ struct pseudo_header
    unsigned char placeholder;
    unsigned char protocol;
    unsigned short tcp_length;
-}
+};
 
 unsigned short tcp_checksum(struct iphdr* iph, struct tcphdr *tcph)
 {
@@ -35,7 +35,7 @@ unsigned short tcp_checksum(struct iphdr* iph, struct tcphdr *tcph)
   psh.dst_addr = iph->daddr;
   psh.placeholder = 0;
   psh.protocol = IPPROTO_TCP;
-  psh.tcp_length htons(sizeof(struct tcphdr));
+  psh.tcp_length = htons(sizeof(struct tcphdr));
   
   char buffer[sizeof(struct pseudo_header) + sizeof(struct tcphdr)];
   

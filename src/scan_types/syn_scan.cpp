@@ -1,5 +1,5 @@
 #include "syn_scan.h"
-
+#include "../packets/checksum.h"
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/ip.h>
