@@ -2,6 +2,14 @@
 #define SCANNER_H
 
 #include <string>
+#include <vector>
+
+struct ScanResult
+{
+	int port;
+	std::string state;
+	std::string detail;
+};
 
 class Scanner
 {
@@ -9,9 +17,9 @@ private:
 	std::string target_ip;
 	
 public:
-	Scanner(std::string ip);
+	 explicit Scanner(std::string ip);
 	
-	void syn_scan(int port);
+	std::vector<ScanResult> scan(const std::vector<int>& ports, int timeout_ms) const;
 };
 
 #endif
